@@ -812,17 +812,7 @@ def copyInterfaceInputs(
 
     for klass, _ in activeInterfaces:
         interfaceFileNames = klass.specifyInputs(cs)
-        for key, files in interfaceFileNames.items():
-            if not isinstance(key, settings.Setting):
-                try:
-                    key = cs.getSetting(key)
-                except NonexistentSetting(key):
-                    raise ValueError(
-                        f"{key} is not a valid setting. Ensure the relevant specifyInputs "
-                        f"method uses a correct setting name."
-                    )
-            label = key.name
-
+        for label, files in interfaceFileNames.items():
             newFiles = []
             for f in files:
                 WILDCARD = False
@@ -874,4 +864,8 @@ def copyInterfaceInputs(
                 newSettings[label] = newFiles[0]
             else:
                 newSettings[label] = newFiles
+            # Clean up newSettings to only return labels that are valid interface settings
+            if not label in cs.keys():
+                del newSettings[label]
+
     return newSettings
