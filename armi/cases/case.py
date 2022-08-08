@@ -812,7 +812,12 @@ def copyInterfaceInputs(
 
     for klass, _ in activeInterfaces:
         interfaceFileNames = klass.specifyInputs(cs)
-        for label, files in interfaceFileNames.items():
+        for key, files in interfaceFileNames.items():
+            try:
+                label = key.name
+            except:
+                label = key
+
             newFiles = []
             for f in files:
                 WILDCARD = False
@@ -864,8 +869,15 @@ def copyInterfaceInputs(
                 newSettings[label] = newFiles[0]
             else:
                 newSettings[label] = newFiles
+
             # Clean up newSettings to only return labels that are valid interface settings
-            if not label in cs.keys():
+            try:
+                label = cs.getSetting(label)
+            except NonexistentSetting:
+                runLog.info(
+                    f"`{label}` is not a valid setting, so it will not be included in the "
+                    f"post-file-copy settings modification."
+                )
                 del newSettings[label]
 
     return newSettings
