@@ -2,7 +2,6 @@
 |Build Status| |Code Coverage| |Commit Activity| |Good First Issues|
 
 The Advanced Reactor Modeling Interface (ARMI\ :sup:`®`) is an open-source tool that
-streamlines your nuclear reactor design/analysis needs by providing a
 software *reactor at your fingertips* and a rich ecosystem of utilities working in concert.
 It is made for and by professional reactor analysis teams and
 is maintained by `TerraPower LLC <http://terrapower.com/>`_, a nuclear technology
