@@ -177,10 +177,9 @@ class AssemblyBlueprint(yamlize.Object):
 
         # loop a second time because we needed all the blocks before choosing the
         # assembly class.
-        for axialIndex, block in enumerate(blocks):
-            b.p.assemNum = a.p.assemNum
+        for axialIndex, b in enumerate(blocks):
             b.name = b.makeName(a.p.assemNum, axialIndex)
-            a.add(block)
+            a.add(b)
 
         # Assign values for the parameters if they are defined on the blueprints
         for paramDef in a.p.paramDefs.inCategory(
